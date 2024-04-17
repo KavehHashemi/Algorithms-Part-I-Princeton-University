@@ -92,25 +92,25 @@ public class Deque<Item> implements Iterable<Item> {
         if (last == -1 && first == -1) {
             throw new NoSuchElementException("Nothing to remove!");
         }
-        else {
-            if (addLast - addFirst - 1 == s.length / 4) {
-                quarterSize(s.length / 4);
-            }
-            if (last != -1) {
-                Item a = s[last];
-                s[last] = null;
-                addLast = last;
-                last--;
-                return a;
-            }
-            else if (first != -1) {
-                Item a = s[addLast - 1];
-                s[addLast - 1] = null;
-                addLast--;
-                last = addLast - 1;
-                return a;
-            }
+        // else {
+        if (addLast - addFirst - 1 == s.length / 4) {
+            quarterSize(s.length / 4);
         }
+        if (last != -1) {
+            Item a = s[last];
+            s[last] = null;
+            addLast = last;
+            last--;
+            return a;
+        }
+        else if (first != -1) {
+            Item a = s[addLast - 1];
+            s[addLast - 1] = null;
+            addLast--;
+            last = addLast - 1;
+            return a;
+        }
+        // }
         return null;
     }
 
@@ -145,17 +145,21 @@ public class Deque<Item> implements Iterable<Item> {
         while (!StdIn.isEmpty()) {
             String value = StdIn.readString();
             if (k % 2 == 0) {
-                dq.addFirst(value);
+                if (value.equals("-")) dq.removeLast();
+                else dq.addLast(value);
             }
             else {
-                dq.addLast(value);
+                if (value.equals("-")) dq.removeFirst();
+                else dq.addFirst(value);
             }
             k++;
         }
         StdOut.println("size: " + dq.size());
-        StdOut.println("first: " + dq.removeFirst());
-        StdOut.println("last: " + dq.removeLast());
-        StdOut.println("size: " + dq.size());
+        StdOut.println("addfirst: " + dq.addFirst);
+        StdOut.println("first: " + dq.first);
+        StdOut.println("last: " + dq.last);
+        StdOut.println("addlast: " + dq.addLast);
+        if (dq.last == -2) StdOut.println("first: " + dq.removeLast());
     }
 
 
