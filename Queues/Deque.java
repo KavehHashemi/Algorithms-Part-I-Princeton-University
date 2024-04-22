@@ -49,7 +49,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     // remove and return the item from the front
     public Item removeFirst() {
-        if (last == -1 && first == -1) {
+        if (last == -1 && first == -1 || size() == 0) {
             throw new NoSuchElementException("Nothing to remove!");
         }
         if (addLast - addFirst - 1 == s.length / 4) {
@@ -131,7 +131,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
 
         public Item next() {
-            if (s[++i] == null) {
+            if (!hasNext()) {
                 throw new NoSuchElementException("Nothing's there!");
             }
             else return s[++i];
@@ -144,14 +144,16 @@ public class Deque<Item> implements Iterable<Item> {
         int k = 1;
         while (!StdIn.isEmpty()) {
             String value = StdIn.readString();
-            if (k % 2 == 0) {
-                if (value.equals("-")) dq.removeLast();
-                else dq.addLast(value);
-            }
-            else {
-                if (value.equals("-")) dq.removeFirst();
-                else dq.addFirst(value);
-            }
+            // if (k % 2 == 0) {
+            //     if (value.equals("-")) dq.removeLast();
+            //     else dq.addLast(value);
+            // }
+            // else {
+            //     if (value.equals("-")) dq.removeFirst();
+            //     else dq.addFirst(value);
+            // }
+            if (value.equals("-")) dq.removeFirst();
+            else dq.addFirst(value);
             k++;
         }
         StdOut.println("size: " + dq.size());

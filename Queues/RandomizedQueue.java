@@ -49,7 +49,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     // return a random number
-    private int randomGenerator() {
+    /* private int randomGenerator() {
         int random = StdRandom.uniformInt(add);
         if (items[random] == null) {
             return randomGenerator();
@@ -57,6 +57,16 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         else {
             return random;
         }
+    }*/
+
+    private int randomGenerator() {
+        int random = StdRandom.uniformInt(add);
+        boolean isValid = items[random] != null;
+        while (!isValid) {
+            random = StdRandom.uniformInt(add);
+            isValid = items[random] != null;
+        }
+        return random;
     }
 
     // remove and return a random item
@@ -100,6 +110,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         public Item next() {
             if (!hasNext()) throw new NoSuchElementException("Nothing's there!");
             Item temp = items[i++];
+            // [INFO] RandomizedQueue.java:113: Using a loop in this method might be a performance bug. [Performance]
             while (temp == null) {
                 temp = items[i++];
             }
