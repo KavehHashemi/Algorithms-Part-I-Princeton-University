@@ -35,6 +35,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // add the item
     public void enqueue(Item item) {
+        if (item == null) throw new IllegalArgumentException("Null");
         if (removed.size() == 0) {
             if (add == items.length) {
                 doubleSize(items.length * 2);
@@ -54,13 +55,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             return randomGenerator();
         }
         else {
-            StdOut.println(random);
             return random;
         }
     }
 
     // remove and return a random item
     public Item dequeue() {
+        if (size() == 0) throw new NoSuchElementException("queue is empty");
         if (size() > 0) {
             int random = randomGenerator();
             Item k = items[random];
@@ -74,6 +75,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // return a random item (but do not remove it)
     public Item sample() {
+        if (size() == 0) throw new NoSuchElementException("queue is empty");
         int random = randomGenerator();
         Item k = items[random];
         return k;
